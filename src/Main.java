@@ -10,7 +10,7 @@ class Payment {
     }
 }
 
-// Input princpal, interest rate, and time, calls the payment class for calculating and outputs the payment amount
+// Input Principal, interest rate, and time, calls the payment class for calculating and outputs the payment amount
  class MortagePayment {
     public static void main (String[] arg) {
         Scanner scan = new Scanner(System.in);
