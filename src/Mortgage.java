@@ -1,19 +1,12 @@
 import java.awt.EventQueue;
 import java.awt.Font;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JTextField;
+import javax.swing.*;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
-import javax.swing.JButton;
 import java.text.DecimalFormat;
-import javax.swing.JSeparator;
 import java.awt.Component;
-import javax.swing.Box;
-import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.JScrollPane;
 
 public class Mortgage {
 
@@ -45,20 +38,21 @@ public class Mortgage {
     private void initialize() {
         frmMortgageCalculator = new JFrame();
         frmMortgageCalculator.setTitle("Mortgage Calculator");
-        frmMortgageCalculator.setBounds(100, 100, 799, 495);
+        frmMortgageCalculator.setResizable(false);
+        frmMortgageCalculator.setBounds(100, 100, 800, 500);
         frmMortgageCalculator.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         GridBagLayout gridBagLayout = new GridBagLayout();
-        gridBagLayout.columnWidths = new int[] { 0, 0, 0, 0, 0, 0 };
+        gridBagLayout.columnWidths = new int[] { 0, 0, 0, 122, 436, 0 };
         gridBagLayout.rowHeights = new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         gridBagLayout.columnWeights = new double[] { 0.0, 0.0, 0.0, 1.0, 0.0, Double.MIN_VALUE };
-        gridBagLayout.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, Double.MIN_VALUE };
+        gridBagLayout.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE };
         frmMortgageCalculator.getContentPane().setLayout(gridBagLayout);
 
         Component verticalStrut = Box.createVerticalStrut(10);
         GridBagConstraints gbc_verticalStrut = new GridBagConstraints();
         gbc_verticalStrut.insets = new Insets(0, 0, 5, 5);
         gbc_verticalStrut.fill = GridBagConstraints.BOTH;
-        gbc_verticalStrut.gridwidth = 4;
+        gbc_verticalStrut.gridwidth = 5;
         gbc_verticalStrut.gridx = 1;
         gbc_verticalStrut.gridy = 0;
         frmMortgageCalculator.getContentPane().add(verticalStrut, gbc_verticalStrut);
@@ -161,6 +155,7 @@ public class Mortgage {
             rateField.setText("");
             yearsField.setText("");
             paymentField.setText("");
+            model.setRowCount(0);
         });
 
         JButton btnCalculate = new JButton("Calculate");
@@ -177,8 +172,8 @@ public class Mortgage {
                 formattedResult = df.format(result);
                 paymentField.setText(formattedResult);
                 calculateMonthly(result, startAmount, rateYears, years);
-            } catch (Exception e2) {
-                paymentField.setText("Error");
+            } catch (NumberFormatException e2) {
+                JOptionPane.showMessageDialog(null, "Please enter valid amount", "Error", JOptionPane.ERROR_MESSAGE);
             }
 
         });
@@ -205,15 +200,16 @@ public class Mortgage {
         JTable table = new JTable();
         model.setColumnIdentifiers(column);
         table.setFont(new Font("Arial", Font.PLAIN, 12));
-        table.getTableHeader().setFont(new Font("Arial", Font.BOLD, 14));
+        table.getTableHeader().setFont(new Font("Arial", Font.BOLD, 12));
         table.setModel(model);
 
         JScrollPane scrollPane_1 = new JScrollPane(table);
         GridBagConstraints gbc_scrollPane_1 = new GridBagConstraints();
+        gbc_scrollPane_1.gridheight = 6;
         gbc_scrollPane_1.insets = new Insets(0, 0, 5, 5);
         gbc_scrollPane_1.fill = GridBagConstraints.BOTH;
-        gbc_scrollPane_1.gridx = 3;
-        gbc_scrollPane_1.gridy = 7;
+        gbc_scrollPane_1.gridx = 4;
+        gbc_scrollPane_1.gridy = 1;
         frmMortgageCalculator.getContentPane().add(scrollPane_1, gbc_scrollPane_1);
 
         Component verticalStrut_2 = Box.createVerticalStrut(20);
